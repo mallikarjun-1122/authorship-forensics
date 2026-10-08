@@ -293,6 +293,21 @@ with col_a1:
 with col_a2:
     reset_btn = st.button("Reset", use_container_width=True)
 
+# Project Documentation Download Button in Sidebar
+try:
+    with open("Authorship_Forensics_Project_Documentation.docx", "rb") as f_doc:
+        doc_bytes = f_doc.read()
+    st.sidebar.markdown("<hr style='border-color: #1c2420;'>", unsafe_allow_html=True)
+    st.sidebar.download_button(
+        label="📄 Download Project Report (.docx)",
+        data=doc_bytes,
+        file_name="Authorship_Forensics_Project_Documentation.docx",
+        mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        use_container_width=True,
+    )
+except Exception:
+    pass
+
 if reset_btn:
     if "results" in st.session_state:
         del st.session_state["results"]
@@ -347,6 +362,20 @@ if "results" not in st.session_state:
         """,
         unsafe_allow_html=True,
     )
+    # Direct button on the main page too
+    try:
+        with open("Authorship_Forensics_Project_Documentation.docx", "rb") as f_doc:
+            doc_data = f_doc.read()
+        st.download_button(
+            label="📥 Download Complete Project Documentation (.docx)",
+            data=doc_data,
+            file_name="Authorship_Forensics_Project_Documentation.docx",
+            mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            use_container_width=True,
+        )
+    except Exception:
+        pass
+
 else:
     res = st.session_state["results"]
     auth = res["authorship"]
